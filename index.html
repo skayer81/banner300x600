@@ -82,7 +82,6 @@
             z-index: 10;
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.3s ease;
         }
 
         .logo.visible {
@@ -98,7 +97,7 @@
             pointer-events: none;
             font-family: 'Ruberoid', Arial, sans-serif;
             font-weight: bold;
-            text-transform: lowercase;
+            text-transform: uppercase;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -130,8 +129,13 @@
             line-height: 1.2;
             padding: 8px 15px;
             text-align: center;
-            text-transform: lowercase;
+            text-transform: uppercase;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .made-in .line1,
+        .made-in .line2 {
+            display: block;
         }
     </style>
 </head>
@@ -142,10 +146,13 @@
 
         <div class="text-container">
             <div class="main-text">
-                <span class="line1">кованые</span>
-                <span class="line2">диски</span>
+                <span class="line1">КОВАНЫЕ</span>
+                <span class="line2">ДИСКИ</span>
             </div>
-            <div class="made-in">сделано в россии</div>
+            <div class="made-in">
+                <span class="line1">СДЕЛАНО</span>
+                <span class="line2">В РОССИИ</span>
+            </div>
         </div>
     </div>
 
@@ -192,13 +199,12 @@
             let currentSlide = 0;
 
             function updateLogos() {
-                logo1.classList.remove('visible');
-                logo2.classList.remove('visible');
-
                 if (currentSlide === 0 || currentSlide === 2) {
                     logo1.classList.add('visible');
+                    logo2.classList.remove('visible');
                 } else {
                     logo2.classList.add('visible');
+                    logo1.classList.remove('visible');
                 }
             }
 
