@@ -126,6 +126,7 @@
             align-items: center;
             text-align: center;
             letter-spacing: 3px;
+            /*межбуквенный интервал*/
         }
 
         .main-text {
@@ -193,8 +194,8 @@
             ];// список картинок для слайдера. можно добавить/убавить
 
             const logoIndices = {
-                logo1: [0, 2],  // логотип 1 показывается на слайдах 0 и 2
-                logo2: [1, 3]   // логотип 2 показывается на слайдах 1 и 3. можно добавить/убавить
+                logo1: [1, 2],  // логотип 1 показывается на слайдах 0 и 2
+                logo2: [0, 3]   // логотип 2 показывается на слайдах 1 и 3. можно добавить/убавить
             };
 
             const banner = document.querySelector('.banner');
@@ -230,6 +231,7 @@
             banner.appendChild(logo2);
 
             let currentSlide = 0;
+            let isAnimating = false;
 
             function updateLogos() {
                 logo1.classList.remove('visible');
@@ -245,19 +247,31 @@
             }
 
             function nextSlide() {
+                if (isAnimating) return;
+                isAnimating = true;
+
                 slides[currentSlide].classList.remove('active');
                 currentSlide = (currentSlide + 1) % slides.length;
                 slides[currentSlide].classList.add('active');
                 updateLogos();
             }
 
+            function handleAnimationEnd() {
+                isAnimating = false;
+                nextSlide();
+            }
+
+            slides.forEach(slide => {
+                slide.addEventListener('animationend', handleAnimationEnd);
+            });
+
             updateLogos();
 
-            setInterval(nextSlide, 2000);
-
+            // яндекс апи для получения ссылки клика
             if (typeof yandexHTML5BannerApi !== 'undefined' && yandexHTML5BannerApi.getClickURLNum) {
                 clickArea.href = yandexHTML5BannerApi.getClickURLNum(1);
             } else {
+                // заглушка для локального тестирования
                 clickArea.href = 'https://yst.ru/main.php';
             }
         })();
