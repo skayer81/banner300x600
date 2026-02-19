@@ -73,23 +73,23 @@
 
         @keyframes zoomOutThenPause {
             0% {
-                transform: scale(2);
+                transform: scale(4);
             }
 
             50% {
-                transform: scale(1);
+                transform: scale(2);
             }
 
             100% {
-                transform: scale(1);
+                transform: scale(2);
             }
         }
 
         .logo {
             position: absolute;
             top: 20px;
-            left: 47px;
-            width: 205px;
+            left: 18px;
+            width: 264px;
             height: auto;
             z-index: 10;
             pointer-events: none;
@@ -102,7 +102,7 @@
 
         .text-container {
             position: absolute;
-            bottom: 30px;
+            bottom: 0px;
             left: 0;
             width: 100%;
             z-index: 20;
@@ -114,12 +114,13 @@
             flex-direction: column;
             align-items: center;
             text-align: center;
+            letter-spacing: 3px;
         }
 
         .main-text {
             color: white;
             line-height: 1;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
@@ -139,7 +140,7 @@
             color: white;
             font-size: 21px;
             line-height: 1.2;
-            padding: 8px 15px;
+            padding: 10px 21px;
             text-align: center;
             text-transform: uppercase;
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -164,7 +165,7 @@
                 <span class="line2">ДИСКИ</span>
             </div>
             <div class="made-in">
-                <span class="line1">СДЕЛАНО</span>
+                <span class="line1">СДЕЛАНЫ</span>
                 <span class="line2">В РОССИИ</span>
             </div>
         </div>
