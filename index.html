@@ -6,6 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Баннер 300x600</title>
     <style>
+        @font-face {
+            font-family: 'Ruberoid';
+            src: url('ruberoid-bold.otf') format('opentype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -74,16 +82,72 @@
             z-index: 10;
             pointer-events: none;
             opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .logo.visible {
             opacity: 1;
         }
+
+        .text-container {
+            position: absolute;
+            bottom: 30px;
+            left: 0;
+            width: 100%;
+            z-index: 20;
+            pointer-events: none;
+            font-family: 'Ruberoid', Arial, sans-serif;
+            font-weight: bold;
+            text-transform: lowercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .main-text {
+            color: white;
+            line-height: 1;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .main-text .line1 {
+            font-size: 36px;
+            display: block;
+        }
+
+        .main-text .line2 {
+            font-size: 50px;
+            display: block;
+        }
+
+        .made-in {
+            display: inline-block;
+            background-color: #ff0000;
+            color: white;
+            font-size: 21px;
+            line-height: 1.2;
+            padding: 8px 15px;
+            text-align: center;
+            text-transform: lowercase;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
     </style>
 </head>
 
 <body>
-    <div id="banner" class="banner"></div>
+    <div id="banner" class="banner">
+        <div class="slides-container" id="slidesContainer"></div>
+
+        <div class="text-container">
+            <div class="main-text">
+                <span class="line1">кованые</span>
+                <span class="line2">диски</span>
+            </div>
+            <div class="made-in">сделано в россии</div>
+        </div>
+    </div>
 
     <script>
         (function () {
@@ -97,8 +161,7 @@
             const CLICK_URL = 'https://yst.ru/main.php';
 
             const banner = document.getElementById('banner');
-            const slidesContainer = document.createElement('div');
-            slidesContainer.className = 'slides-container';
+            const slidesContainer = document.getElementById('slidesContainer');
 
             const slides = [];
 
@@ -112,8 +175,6 @@
                 slidesContainer.appendChild(img);
                 slides.push(img);
             });
-
-            banner.appendChild(slidesContainer);
 
             const logo1 = document.createElement('img');
             logo1.src = 'images/logo1.png';
