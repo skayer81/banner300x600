@@ -43,12 +43,26 @@
             height: 100%;
             object-fit: cover;
             opacity: 0;
-            transition: opacity 1s ease-in-out;
             pointer-events: none;
         }
 
         .slide.active {
             opacity: 1;
+            animation: zoomOutThenPause 2s ease-in-out forwards;
+        }
+
+        @keyframes zoomOutThenPause {
+            0% {
+                transform: scale(2);
+            }
+
+            50% {
+                transform: scale(1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
     </style>
 </head>
@@ -58,7 +72,6 @@
 
     <script>
         (function () {
-
             const imagePaths = [
                 'images/image1.jpg',
                 'images/image2.jpg',
@@ -69,7 +82,6 @@
             const CLICK_URL = 'https://yst.ru/main.php';
 
             const banner = document.getElementById('banner');
-
             const slidesContainer = document.createElement('div');
             slidesContainer.className = 'slides-container';
 
@@ -89,7 +101,6 @@
             banner.appendChild(slidesContainer);
 
             let currentSlide = 0;
-            let intervalId = null;
 
             function nextSlide() {
                 slides[currentSlide].classList.remove('active');
@@ -97,7 +108,7 @@
                 slides[currentSlide].classList.add('active');
             }
 
-            intervalId = setInterval(nextSlide, 3000);
+            setInterval(nextSlide, 2000);
 
             banner.addEventListener('click', function () {
                 window.open(CLICK_URL, '_blank');
