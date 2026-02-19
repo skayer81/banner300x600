@@ -64,6 +64,21 @@
                 transform: scale(1);
             }
         }
+
+        .logo {
+            position: absolute;
+            top: 20px;
+            left: 47px;
+            width: 205px;
+            height: auto;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .logo.visible {
+            opacity: 1;
+        }
     </style>
 </head>
 
@@ -100,13 +115,40 @@
 
             banner.appendChild(slidesContainer);
 
+            const logo1 = document.createElement('img');
+            logo1.src = 'images/logo1.png';
+            logo1.className = 'logo';
+            logo1.alt = 'Логотип 1';
+
+            const logo2 = document.createElement('img');
+            logo2.src = 'images/logo2.png';
+            logo2.className = 'logo';
+            logo2.alt = 'Логотип 2';
+
+            banner.appendChild(logo1);
+            banner.appendChild(logo2);
+
             let currentSlide = 0;
+
+            function updateLogos() {
+                logo1.classList.remove('visible');
+                logo2.classList.remove('visible');
+
+                if (currentSlide === 0 || currentSlide === 2) {
+                    logo1.classList.add('visible');
+                } else {
+                    logo2.classList.add('visible');
+                }
+            }
 
             function nextSlide() {
                 slides[currentSlide].classList.remove('active');
                 currentSlide = (currentSlide + 1) % slides.length;
                 slides[currentSlide].classList.add('active');
+                updateLogos();
             }
+
+            updateLogos();
 
             setInterval(nextSlide, 2000);
 
