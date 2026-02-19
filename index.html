@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Баннер 300x600</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: transparent;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .banner {
+            width: 300px;
+            height: 600px;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            border: none;
+            background-color: #f0f0f0;
+        }
+
+        .slides-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="banner" id="banner">
+        <div class="slides-container" id="slidesContainer">
+        </div>
+    </div>
+
+    <script>
+        const imagePaths = [
+            'imgs/img1.jpg',
+            'imgs/img2.jpg',
+            'imgs/img3.jpg',
+            'imgs/img4.jpg'
+        ];
+
+        const CLICK_URL = 'https://какой-то-сайт.рф/?utm_source=300x600_banner';
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById('slidesContainer');
+
+            imagePaths.forEach((path, index) => {
+                const img = document.createElement('img');
+                img.src = path;
+                img.alt = `Слайд ${index + 1}`;
+                img.className = 'slide';
+                if (index === 0) {
+                    img.classList.add('active');
+                }
+                container.appendChild(img);
+            });
+
+            const slides = document.querySelectorAll('.slide');
+            let currentSlide = 0;
+
+            function nextSlide() {
+                slides[currentSlide].classList.remove('active');
+
+                currentSlide = (currentSlide + 1) % slides.length;
+
+                slides[currentSlide].classList.add('active');
+            }
+
+            setInterval(nextSlide, 3000);
+
+            document.getElementById('banner').addEventListener('click', function () {
+                window.open(CLICK_URL, '_blank');
+            });
+        });
+    </script>
+</body>
+
+</html>
