@@ -26,7 +26,6 @@
             position: relative;
             overflow: hidden;
             cursor: pointer;
-            border: none;
             background-color: #f0f0f0;
         }
 
@@ -55,52 +54,55 @@
 </head>
 
 <body>
-    <div class="banner" id="banner">
-        <div class="slides-container" id="slidesContainer">
-        </div>
-    </div>
+    <div id="banner" class="banner"></div>
 
     <script>
-        const imagePaths = [
-            'imgs/img1.jpg',
-            'imgs/img2.jpg',
-            'imgs/img3.jpg',
-            'imgs/img4.jpg'
-        ];
+        (function () {
 
-        const CLICK_URL = 'https://какой-то-сайт.рф/?utm_source=300x600_banner';
+            const imagePaths = [
+                'images/image1.jpg',
+                'images/image2.jpg',
+                'images/image3.jpg',
+                'images/image4.jpg'
+            ];
 
-        document.addEventListener('DOMContentLoaded', function () {
-            const container = document.getElementById('slidesContainer');
+            const CLICK_URL = 'https://yst.ru/main.php';
+
+            const banner = document.getElementById('banner');
+
+            const slidesContainer = document.createElement('div');
+            slidesContainer.className = 'slides-container';
+
+            const slides = [];
 
             imagePaths.forEach((path, index) => {
                 const img = document.createElement('img');
                 img.src = path;
                 img.alt = `Слайд ${index + 1}`;
                 img.className = 'slide';
-                if (index === 0) {
-                    img.classList.add('active');
-                }
-                container.appendChild(img);
+                if (index === 0) img.classList.add('active');
+
+                slidesContainer.appendChild(img);
+                slides.push(img);
             });
 
-            const slides = document.querySelectorAll('.slide');
+            banner.appendChild(slidesContainer);
+
             let currentSlide = 0;
+            let intervalId = null;
 
             function nextSlide() {
                 slides[currentSlide].classList.remove('active');
-
                 currentSlide = (currentSlide + 1) % slides.length;
-
                 slides[currentSlide].classList.add('active');
             }
 
-            setInterval(nextSlide, 3000);
+            intervalId = setInterval(nextSlide, 3000);
 
-            document.getElementById('banner').addEventListener('click', function () {
+            banner.addEventListener('click', function () {
                 window.open(CLICK_URL, '_blank');
             });
-        });
+        })();
     </script>
 </body>
 
